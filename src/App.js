@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/*global chrome*/
+import React, { Component } from 'react'
+import './App.css'
+import TabList from './components/TabList/TabList'
+import { getAllWindowTabs } from './services/api'
+import GroupsContainer from './components/GroupBox/GroupsContainer'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//Workaround for npm error when importing this stylesheet from the component under same directory
+import './components/TabList/styles.css'
+
+class App extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      activeTabs: [],
+      tabs: [],
+      groups: []
+    }
+  }
+
+
+  createGroup = group => {
+    this.setState(prevState => ({ groups: { ...prevState.groups, group } }))
+  }
+
+  getTabs() {
+    const callback = result => {
+      this.setState({
+        tabs: result
+      })
+    }
+
+    getAllWindowTabs(callback)
+  }
+
+  componentDidMount() {
+    this.getTabs()
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <GroupsContainer groups={this.state.groups} createGroup={this.createGroup} />
+        <TabList windowTabs={this.state.tabs} />
+      </div>
+    )
+  }
 }
 
-export default App;
+
+export default App

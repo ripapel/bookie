@@ -6,5 +6,9 @@
   "browser_action": {
     "default_popup": "index.html"
   },
+  "permissions": [
+    "tabs",
+    "storage"
+  ],
   "content_security_policy": "script-src 'self' 'sha256-vre68h8OqYt6f0HJ2xhIuXXptai/gsiaBSjL3n3ZREA='; object-src 'self'"
 }
