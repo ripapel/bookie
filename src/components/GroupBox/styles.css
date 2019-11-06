@@ -7,13 +7,18 @@
 
 .group-box-inner {
     display: grid;
-    grid-template-columns: 110px auto auto auto;
+    grid-template-columns: 33% 33% 33%;
 }
+
+.group-container{
+    margin-bottom: 17px;
+}
+
 
 .group {
     border: 1px solid #ddd;
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
     border-radius: 10px;
 }
 
@@ -23,24 +28,38 @@
     text-align: center;
 }
 
+
+.group-name-no-edit {
+    text-align: center;
+    width: 136px;
+}
+
+.group-name-no-edit label {
+    font-size: 16px;
+    font-weight: 500;
+}
+
 .group-name-txt {
-    width: 100px;
+    width: 130px;
     margin-top: 5px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 17px;
+    box-sizing: border-box;
+    padding: 3px;
 
 }
 
 .group-name-txt:focus {
     outline: none;
-    border: 2px solid #b4aeae;
+    border: 1.5px solid #b4aeae;
 }
 
 .controllers-container {
-    width: 100px;
+    width: 136px;
     text-align: right;
-    margin-top: 4px;
+    margin-top: 9px;
+    margin-bottom: 15px;
 }
 
 .new-group-icon {
@@ -69,4 +88,19 @@ button {
 
 button:focus {
     outline: 0;
+}
+
+.change-group-name,
+.btn-underline {
+    text-decoration: underline;
+    color: dimgrey;
+}
+
+.controller-save {
+    width: 46px;
+    background: #1db954;
+    color: white;
+    border: none;
+    border-radius: 3px;
+
 }

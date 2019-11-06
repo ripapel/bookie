@@ -2,13 +2,12 @@ import React, { Component } from 'react'
 import './styles.css'
 import CreateGroup from './CreateGroup'
 import NewGroup from './NewGroup'
-import { storeValue, getValue } from '../../services/api'
+import Group from './Group'
 
 class GroupsContainer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            boxes: [],
             isCreatingGroup: false
         }
     }
@@ -17,14 +16,12 @@ class GroupsContainer extends Component {
         this.setState(prevState => ({ isCreatingGroup: !prevState.isCreatingGroup }))
     }
 
-    componentDidMount = _ => {
-        storeValue({ 'foo': 'bar' }, function () {
-            console.log('Object added')
-        })
-
-        getValue('foo', function (result) {
-            console.log(result)
-        })
+    renderGroups = () => {
+        const { groups } = this.props
+        if (groups) {
+            const groupValues = Object.values(groups)
+            return groupValues.reverse().map(g => <Group group={g} />)
+        }
     }
 
     render() {
@@ -32,7 +29,12 @@ class GroupsContainer extends Component {
             <div className="group-box">
                 <div className="group-box-inner">
                     <CreateGroup toggleIsCreatingGroup={this.toggleIsCreatingGroup} />
-                    <NewGroup toggleIsCreatingGroup={this.toggleIsCreatingGroup} isCreatingGroup={this.state.isCreatingGroup} />
+                    <NewGroup
+                        toggleIsCreatingGroup={this.toggleIsCreatingGroup}
+                        isCreatingGroup={this.state.isCreatingGroup}
+                        createGroup={this.props.createGroup}
+                    />
+                    {this.renderGroups()}
                 </div>
             </div>
         )

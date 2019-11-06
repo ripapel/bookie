@@ -5,11 +5,26 @@ import GroupName from './GroupName'
 
 export default class NewGroup extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            isEditing: true
+            isEditing: true,
+            name: ''
         }
+    }
+
+    handleChangeName = e => {
+        this.setState({
+            name: e.target.value
+        })
+    }
+
+    handleCreateGroup = () => {
+        this.props.createGroup({ name: this.state.name })
+        this.props.toggleIsCreatingGroup()
+        this.setState({
+            name: ''
+        })
     }
 
     renderNewGroup() {
@@ -18,7 +33,13 @@ export default class NewGroup extends Component {
                 <Container>
                     <FaviconsBoard>
                     </FaviconsBoard>
-                    <GroupName onCancel={this.props.toggleIsCreatingGroup} isEditing={true} />
+                    <GroupName
+                        onCancel={this.props.toggleIsCreatingGroup}
+                        handleChangeName={this.handleChangeName}
+                        groupName={this.state.name}
+                        onConfirm={this.handleCreateGroup}
+                        isEditing={true}
+                    />
                 </Container>
             )
         }

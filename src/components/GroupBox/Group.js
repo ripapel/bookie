@@ -7,20 +7,22 @@ class Group extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            isEditing: false
         }
     }
 
+
     render() {
-        const { tabs } = this.props;
+        const { group } = this.props;
         return (
             <Container>
                 <FaviconsBoard>
-                    {
+                    {/* {
                         tabs.map(t =>
                             <img src={t.favIconUrl} alt="page favicon" />)
-                    }
+                    } */}
                 </FaviconsBoard>
-                <GroupName />
+                <GroupName isEditing={this.state.isEditing} groupName={group.name} />
             </Container>
         )
     }

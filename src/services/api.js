@@ -3,12 +3,12 @@ const getAllWindowTabs = (callback) => {
     chrome.tabs.query({ currentWindow: true }, callback)
 }
 
-const storeValue = (obj, callback) => {
+const storeData = (obj, callback) => {
     chrome.storage.sync.set(obj, callback)
 }
 
-const getValue = (key, callback) => {
+const retrieveData = (key, callback) => {
     chrome.storage.sync.get(key, callback)
 }
 
-export { getAllWindowTabs, storeValue, getValue }
+export { getAllWindowTabs, storeData, retrieveData }
