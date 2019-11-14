@@ -1,6 +1,7 @@
 import React from 'react'
 import NewGroup from './NewGroup'
 import Group from './Group'
+import { Droppable } from 'react-beautiful-dnd'
 
 export default function GroupsContainer(props) {
     return (
@@ -13,22 +14,31 @@ export default function GroupsContainer(props) {
                 Create Group
                 </button>
             <div id="groups-container-inner">
-                <div className="group-container">
-
+                <Droppable droppableId="groups-container">
                     {
-                        props.isCreatingGroup &&
-                        <NewGroup
-                            handleChangeNewGroupName={props.handleChangeNewGroupName}
-                            newGroup={props.newGroup}
-                            createGroup={props.createGroup}
-                            toggleIsCreatingGroup={props.toggleIsCreatingGroup}
-                        />
+                        provided => (
+                            <div
+                                className="group-container"
+                                ref={provided.innerRef}>
+                                {
+                                    props.isCreatingGroup &&
+                                    <NewGroup
+                                        handleChangeNewGroupName={props.handleChangeNewGroupName}
+                                        newGroup={props.newGroup}
+                                        createGroup={props.createGroup}
+                                        toggleIsCreatingGroup={props.toggleIsCreatingGroup}
+                                    />
+                                }
+                                {props.groups.map(g =>
+                                    <Group group={g} key={g.id}
+                                        handleChangeGroupName={props.handleChangeGroupName}
+                                        deleteGroup={props.deleteGroup} />)}
+                                {provided.placeholder}
+                            </div>
+                        )
                     }
-                    {props.groups.map(g =>
-                        <Group group={g} key={g.id}
-                            handleChangeGroupName={props.handleChangeGroupName}
-                            deleteGroup={props.deleteGroup} />)}
-                </div>
+                </Droppable>
+
             </div>
         </div>
 
