@@ -1,5 +1,5 @@
 /*global chrome*/
-const getAllWindowTabs = (callback) => {
+const getCurrentWindowTabs = (callback) => {
     chrome.tabs.query({ currentWindow: true }, callback)
 }
 
@@ -11,4 +11,4 @@ const retrieveData = (key, callback) => {
     chrome.storage.sync.get(key, callback)
 }
 
-export { getAllWindowTabs, storeData, retrieveData }
+export { getCurrentWindowTabs, storeData, retrieveData }

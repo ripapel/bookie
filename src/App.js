@@ -1,96 +1,103 @@
-/*global chrome*/
 import React, { Component } from 'react'
 import './App.css'
-import TabList from './components/TabList/TabList'
-import { getAllWindowTabs, storeData, retrieveData } from './services/api'
-import GroupsContainer from './components/GroupBox/GroupsContainer'
+import GroupsContainer from './components/GroupsContainer/GroupsContainer'
+import PagesList from './components/PagesList/PagesList'
+import { getCurrentWindowTabs } from './services/api'
 
-//Workaround for npm error when importing this stylesheet from the component under same directory
-import './components/TabList/styles.css'
 
 class App extends Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
-      activeGroup: null,
-      tabs: [],
-      groups: {},
-      lastId: 0
+      openPages: [],
+      isCreatingGroup: false,
+      newGroup: { 'id': '', 'name': '', pages: [] },
+      groups: []
     }
   }
 
-  createGroup = group => {
 
-    this.setState(prevState => ({
-      groups: { ...prevState.groups, [prevState.lastId]: group },
-      lastId: ++prevState.lastId
-    }))
+  createGroup = () => {
+    const newGroup = { ...this.state.newGroup }
 
-  }
-
-  groupAll = () => {
-    if (this.state.activeGroup !== null)
+    if (newGroup.name === '')
       return
-    
-    
-    
+
+    const uuid = require('uuid/v1')
+    newGroup['id'] = uuid()
+
+    const groups = [...this.state.groups, newGroup]
+    this.setState({
+      groups: groups,
+      newGroup: { 'id': '', name: '' }
+    })
+
+
+    this.toggleIsCreatingGroup()
   }
 
-  retrieveGroups() {
-    const callback = result => {
-      this.setState({
-        groups: result.groups
-      })
-    }
-
-    retrieveData('groups', callback)
-
+  deleteGroup = id => {
+    const groups = [...this.state.groups.filter(g => g['id'] !== id)]
+    this.setState({
+      groups: groups
+    })
   }
 
-  storeGroups = () => {
-    storeData({ 'groups': this.state.groups }, _ => console.log('Success'))
+  toggleIsCreatingGroup = () => {
+    this.setState(prevState => (
+      {
+        isCreatingGroup: !prevState.isCreatingGroup
+      }
+    ))
   }
 
-  getTabs() {
-    const callback = result => {
-      this.setState({
-        tabs: result
-      })
-    }
+  handleChangeNewGroupName = e => {
+    const name = e.target.value
+    this.setState(prevState => (
+      { newGroup: { ...prevState.newGroup, 'name': name } }
+    ))
+  }
 
-    getAllWindowTabs(callback)
+  handleChangeGroupName = (id, name) => {
+    const groups = [...this.state.groups.map(p => p.id === id ? { ...p, 'name': name } : p)]
+    this.setState({ groups: groups })
+    console.log(this.state.groups)
   }
 
   componentDidMount() {
-    this.getTabs()
-    this.retrieveGroups()
-  }
+    const callback = result => {
+      this.setState({
+        openPages: result
+      })
+    }
 
-  componentDidUpdate(prevProps, prevState) {
-
-    //Need to add comparison to avoid unnecessary re-rendering
-    // if (Object.keys(prevState.groups).length !==
-    //   Object.keys(this.state.groups).length) {
-
-    // }
-  
-    console.log('..........Component update........')
-    console.log(this.state)
-    this.storeGroups()
+    getCurrentWindowTabs(callback)
   }
 
   render() {
     return (
-      <div className="App">
-        <GroupsContainer
-          groups={this.state.groups}
-          createGroup={this.createGroup} />
-        <TabList windowTabs={this.state.tabs} />
+      <div id="app">
+        <div id="top-bar">
+          <input type="text" id="search-app" placeholder="Filter by group or page name..." />
+        </div>
+        <div id="app-body">
+          <GroupsContainer
+            toggleIsCreatingGroup={this.toggleIsCreatingGroup}
+            isCreatingGroup={this.state.isCreatingGroup}
+            handleChangeNewGroupName={this.handleChangeNewGroupName}
+            newGroup={this.state.newGroup}
+            groups={this.state.groups}
+            createGroup={this.createGroup}
+            handleChangeGroupName={this.handleChangeGroupName}
+            deleteGroup={this.deleteGroup}
+          />
+          <PagesList pages={this.state.openPages} />
+        </div>
       </div>
     )
   }
 }
-
 
 export default App

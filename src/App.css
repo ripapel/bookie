@@ -1,10 +1,157 @@
-.App {
-  display: flex;
-  width: 800px;
-  height: 600px;
-  padding-top: 15px;
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+* {
+    font-family: 'Open Sans', sans-serif;
 }
 
-ul {
-  padding-left: 0;
+.title {
+    font-size: 16px;
+    margin-top: 0;
+}
+
+#app {
+    background-color: #f2efef;
+    width: 550px;
+    min-height: 700px;
+    padding: 15px;
+}
+
+.row {
+    display: flex;
+}
+
+#app-body {
+    display: flex;
+    margin-top: 15px;
+}
+
+#search-app {
+    width: 270px;
+    height: 22px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    width: 100%;
+    height: 20px;
+    padding: 7px 0 7px 7px;
+}
+
+
+#groups-container {
+    padding-right: 25px;
+    border-right: 1px solid #ddd;
+    min-width: 255px;
+}
+
+.group {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 223px;
+    margin-bottom: 20px;
+    min-height: 52px;
+}
+
+.group-top-row {
+    margin-bottom: 5px;
+    justify-content: space-between;
+}
+
+.group-name {
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin: 0 10px 0 0;
+}
+
+.group-page-favicons-container {
+    display: flex;
+}
+
+.group-page-favicon {
+    width: 20px;
+    height: 20px;
+    background-color: grey;
+    border-radius: 50%;
+}
+
+.actions-container {
+    position: relative;
+    top: -4px;
+}
+
+#add-group-btn,
+#group-all-pages {
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+#add-group-btn:hover,
+#group-all-pages:hover, .primary-btn:hover {
+    color: #28a745;
+
+}
+
+.group-action,
+#add-group-btn,
+#group-all-pages {
+    border: 0;
+    background-color: transparent;
+    padding-right: 0;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.warning-btn:hover {
+    color: #ffc107;
+}
+
+.danger-btn:hover {
+    color: #dc3545;
+}
+
+#pages {
+    margin-left: 20px;
+}
+
+#pages-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.page-name {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.page-favicon {
+    width: 21px;
+    height: 21px;
+    margin-right: 10px;
+}
+
+.pages-list-item {
+    margin-bottom: 6px;
+}
+
+.pages-list-item-inner {
+    display: flex;
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+    border-radius: 5px;
+    min-width: 170px;
+}
+
+.placeholder {
+    background-color: white;
+    border: 1px solid black dashed;
+}
+
+.edit-group-name {
+    width: 120px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    height: 21px;
+    padding: 1px;
 }
