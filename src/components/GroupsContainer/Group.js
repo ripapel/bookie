@@ -27,7 +27,7 @@ export default class Group extends Component {
     render() {
         const { name, id } = this.state
         return (
-            <Draggable draggableId={id}>
+            <Draggable draggableId={id} index={this.props.index}>
                 {
                     provided => (
                         <div className="group"

@@ -29,10 +29,10 @@ export default function GroupsContainer(props) {
                                         toggleIsCreatingGroup={props.toggleIsCreatingGroup}
                                     />
                                 }
-                                {props.groups.map(g =>
+                                {props.groups.map((g, index) =>
                                     <Group group={g} key={g.id}
                                         handleChangeGroupName={props.handleChangeGroupName}
-                                        deleteGroup={props.deleteGroup} />)}
+                                        deleteGroup={props.deleteGroup} index={index} />)}
                                 {provided.placeholder}
                             </div>
                         )

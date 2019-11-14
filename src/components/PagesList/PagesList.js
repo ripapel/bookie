@@ -8,13 +8,13 @@ export default function PagesList(props) {
         <div id="pages">
             <h2 className="title">Open Pages</h2>
             <button id="group-all-pages" >Group All</button>
-            <Droppable>
+            <Droppable droppableId="page-list">
                 {
                     provided => (
                         <ul id="pages-list"
                             ref={provided.innerRef}
                         >
-                            {pages.map(p => <Page page={p} key={p.id} />)}
+                            {pages.map((p, index) => <Page page={p} key={p.id} index={index} />)}
                             {provided.placeholder}
                         </ul>
                     )
