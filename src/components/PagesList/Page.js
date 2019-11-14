@@ -16,6 +16,7 @@ export default function Page(props) {
                         <img alt="" src={page.favIconUrl} class="page-favicon" />
                         <h3 className="page-name">{page.title}</h3>
                     </div>
+                    {provided.placeholder}
                 </li>
             )}
         </Draggable>

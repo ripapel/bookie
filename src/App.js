@@ -76,6 +76,10 @@ class App extends Component {
     getCurrentWindowTabs(callback)
   }
 
+  onDragEnd = result => {
+    console.log(result)
+  }
+
   render() {
     return (
       <div id="app">
@@ -83,7 +87,7 @@ class App extends Component {
           <input type="text" id="search-app" placeholder="Filter by group or page name..." />
         </div>
         <div id="app-body">
-          <DragDropContext>
+          <DragDropContext onDragEnd={this.onDragEnd}>
             <GroupsContainer
               toggleIsCreatingGroup={this.toggleIsCreatingGroup}
               isCreatingGroup={this.state.isCreatingGroup}
