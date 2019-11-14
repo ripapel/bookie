@@ -3,7 +3,7 @@ import './App.css'
 import GroupsContainer from './components/GroupsContainer/GroupsContainer'
 import PagesList from './components/PagesList/PagesList'
 import { getCurrentWindowTabs } from './services/api'
-
+import { DragDropContext } from 'react-beautiful-dnd'
 
 class App extends Component {
 
@@ -83,17 +83,19 @@ class App extends Component {
           <input type="text" id="search-app" placeholder="Filter by group or page name..." />
         </div>
         <div id="app-body">
-          <GroupsContainer
-            toggleIsCreatingGroup={this.toggleIsCreatingGroup}
-            isCreatingGroup={this.state.isCreatingGroup}
-            handleChangeNewGroupName={this.handleChangeNewGroupName}
-            newGroup={this.state.newGroup}
-            groups={this.state.groups}
-            createGroup={this.createGroup}
-            handleChangeGroupName={this.handleChangeGroupName}
-            deleteGroup={this.deleteGroup}
-          />
-          <PagesList pages={this.state.openPages} />
+          <DragDropContext>
+            <GroupsContainer
+              toggleIsCreatingGroup={this.toggleIsCreatingGroup}
+              isCreatingGroup={this.state.isCreatingGroup}
+              handleChangeNewGroupName={this.handleChangeNewGroupName}
+              newGroup={this.state.newGroup}
+              groups={this.state.groups}
+              createGroup={this.createGroup}
+              handleChangeGroupName={this.handleChangeGroupName}
+              deleteGroup={this.deleteGroup}
+            />
+            <PagesList pages={this.state.openPages} />
+          </DragDropContext>
         </div>
       </div>
     )
