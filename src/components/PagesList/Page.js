@@ -1,5 +1,7 @@
 import React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 export default function Page(props) {
     const { page, index } = props
@@ -14,7 +16,16 @@ export default function Page(props) {
                 >
                     <div className="pages-list-item-inner">
                         <img alt="" src={page.favIconUrl} class="page-favicon" />
-                        <h3 className="page-name">{page.title}</h3>
+                        <a className="page-name" href={page.url}>{page.title}</a>
+                        {
+                            props.isGroupPage &&
+                            <button
+                                className="remove-group-page-btn"
+                                onClick={props.removePageFromGroup}
+                            >
+                                <FontAwesomeIcon icon={faTimes} />
+                            </button>
+                        }
                     </div>
                     {provided.placeholder}
                 </li>

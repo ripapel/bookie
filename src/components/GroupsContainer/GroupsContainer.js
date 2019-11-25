@@ -14,7 +14,7 @@ export default function GroupsContainer(props) {
                 Create Group
                 </button>
             <div id="groups-container-inner">
-                <Droppable droppableId="groups-container">
+                <Droppable droppableId="groups-container" type="groups">
                     {
                         provided => (
                             <div
@@ -30,9 +30,15 @@ export default function GroupsContainer(props) {
                                     />
                                 }
                                 {props.groups.map((g, index) =>
-                                    <Group group={g} key={g.id}
+                                    <Group
+                                        group={g}
+                                        key={g.id}
                                         handleChangeGroupName={props.handleChangeGroupName}
-                                        deleteGroup={props.deleteGroup} index={index} />)}
+                                        deleteGroup={props.deleteGroup}
+                                        index={index}
+                                        selectGroup={props.selectGroup}
+                                        filter={props.filter}
+                                    />)}
                                 {provided.placeholder}
                             </div>
                         )
