@@ -142,6 +142,7 @@
 .pages-list-item {
     margin-bottom: 6px;
     position: relative;
+    width: 250px;
 }
 
 .pages-list-item-inner {

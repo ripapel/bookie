@@ -16,7 +16,7 @@ export default function Page(props) {
                 >
                     <div className="pages-list-item-inner">
                         <img alt="" src={page.favIconUrl} class="page-favicon" />
-                        <a className="page-name" href={page.url}>{page.title}</a>
+                        <a className="page-name" target="blank" href={page.url}>{page.title}</a>
                         {
                             props.isGroupPage &&
                             <button

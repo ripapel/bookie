@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import GroupsContainer from './components/GroupsContainer/GroupsContainer'
 import PagesList from './components/PagesList/PagesList'
-import { getCurrentWindowTabs } from './services/api'
+import { getCurrentWindowTabs, storeData, retrieveData } from './services/api'
 import { DragDropContext } from 'react-beautiful-dnd'
 
 class App extends Component {
@@ -131,14 +131,28 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const callback = result => {
+
+    const setOpenPages = result => {
       this.setState({
         openPages: { all: result, filtered: [] }
       })
     }
 
-    getCurrentWindowTabs(callback)
+    const setGroups = result => {
+      this.setState({
+        groups: { all: result.groups, filtered: [] }
+      })
+    }
+
+    getCurrentWindowTabs(setOpenPages)
+    retrieveData('groups', setGroups)
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    storeData({ 'groups': this.state.groups.all }, _ => console.log('Success'))
+  }
+
+
 
   onDragEnd = result => {
     console.log(result)
@@ -166,6 +180,8 @@ class App extends Component {
       ))
     }
   }
+
+
 
 
   render() {
